@@ -295,6 +295,11 @@ Prefab:
       propertyPath: m_RootOrder
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 114580078852178694, guid: 87c2b5addb467c04b9db81cf43666aaf,
+        type: 2}
+      propertyPath: tileSize
+      value: 0.34
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 87c2b5addb467c04b9db81cf43666aaf, type: 2}
   m_IsPrefabAsset: 0
