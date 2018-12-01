@@ -16,11 +16,6 @@ public class PoolerScript : MonoBehaviour
     void Awake()
     {
         current = this;
-    }
-
-    // Use this for initialization
-    void Start()
-    {
         pooledObjects = new List<GameObject>();
 
         for (int i = 0; i < pooledAmount; i++)
@@ -31,11 +26,21 @@ public class PoolerScript : MonoBehaviour
         }
     }
 
+    // Use this for initialization
+    void Start()
+    {
+
+    }
+
     public GameObject GetPooledObject()
     {
         for (int i = 0; i < pooledAmount; i++)
         {
-            if (!pooledObjects[i].activeInHierarchy)
+            if(pooledObjects[i] == null)
+            {
+                Debug.Log("hehehehehe");
+            }
+            else if (!pooledObjects[i].activeInHierarchy)
             {
                 return pooledObjects[i];
             }

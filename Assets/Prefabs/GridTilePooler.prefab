@@ -51,6 +51,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 606d160557576e54c8bd8b9613da63f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pooledObject: {fileID: 0}
-  willGrow: 1
+  pooledObject: {fileID: 1510559653818616, guid: f4ea50e4973ed3a4bbd2ab25a51e5b3a,
+    type: 2}
+  willGrow: 0
   timer: 0
