@@ -6,7 +6,7 @@ public class FloorPoolerScript : MonoBehaviour {
 
     public static FloorPoolerScript current;
     public GameObject pooledObject;
-    public static int pooledAmount = 23 * 23;
+    public static int pooledAmount = 30 * 30;
     public bool willGrow = true;
     public int timer = 0;
 

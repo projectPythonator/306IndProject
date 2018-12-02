@@ -46,18 +46,44 @@ public class GridManager : MonoBehaviour {
 
     public void PlaceObject(GameObject obj, int posX, int posY)
     {
-        Vector3 curPos = Grid[posX, posY].transform.position;
-        Grid[posX, posY].SetActive(false);
-        Grid[posX, posY] = obj;
-        Grid[posX, posY].transform.position = curPos;
-        GridSpaces[posX, posY] = 0;
+        Vector3 curPos = Grid[posY, posX].transform.position;
+        Grid[posY, posX].SetActive(false);
+        Grid[posY, posX] = obj;
+        Grid[posY, posX].transform.position = curPos;
+        GridSpaces[posY, posX] = 0;
+    }
+
+    public void PlaceBlank (int posX, int posY)
+    {
+        GameObject tmp = FloorPoolerScript.current.GetPooledObject();
+        tmp.SetActive(true);
+        tmp.transform.position = new Vector3(tileSize * posX, tileSize * posY, 0);
+        Grid[posY, posX] = tmp;
+        GridSpaces[posY, posX] = 1;
+    }
+
+    public bool InBounds(int pos)
+    {
+        return (0 <= pos && gridSize > pos);
     }
 
     public bool CanPlaceObject(int posX, int posY)
     { 
-        return (GridSpaces != null && GridSpaces[posX, posY] == 1);
+        return (GridSpaces != null && InBounds(posX) && InBounds(posY) && GridSpaces[posY, posX] == 1);
     }
 
+    public void MoveObject(GameObject obj, int cPosX, int cPosY, int dirX, int dirY)
+    {
+        int curX = cPosX + dirX;
+        int curY = cPosY + dirY;
+        if(CanPlaceObject(curX, curY))
+        {
+            PlaceBlank(cPosX, cPosY);
+            PlaceObject(obj, curX, curY);
+            obj.SendMessage("SetPosX", curX);
+            obj.SendMessage("SetPosY", curY);
+        }
+    }
     // Update is called once per frame
     void Update () {
 		
