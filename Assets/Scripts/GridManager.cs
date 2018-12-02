@@ -44,6 +44,8 @@ public class GridManager : MonoBehaviour {
         }
     }
 
+
+
     public void PlaceObject(GameObject obj, int posX, int posY)
     {
         Vector3 curPos = Grid[posY, posX].transform.position;
@@ -76,13 +78,39 @@ public class GridManager : MonoBehaviour {
     {
         int curX = cPosX + dirX;
         int curY = cPosY + dirY;
-        if(CanPlaceObject(curX, curY))
+        if (CanPlaceObject(curX, curY))
         {
             PlaceBlank(cPosX, cPosY);
             PlaceObject(obj, curX, curY);
             obj.SendMessage("SetPosX", curX);
             obj.SendMessage("SetPosY", curY);
         }
+        else
+        {
+            //loop ahead to check if there is a open spot in the grid
+            curX += dirX;
+            curY += dirY;
+            while (InBounds(curX) && InBounds(curY))
+            {
+                if (CanPlaceObject(curX, curY))
+                {
+                    PlaceBlank(cPosX, cPosY);
+                    PlaceObject(obj, cPosX + dirX, cPosY + dirY);
+                    Debug.Log(obj.name);
+                    obj.SendMessage("SetPosX", cPosX + dirX);
+                    obj.SendMessage("SetPosY", cPosY + dirY);
+
+                    GameObject tmp = BrickPoolerScript.current.GetPooledObject();
+                    tmp.SetActive(true);
+                    PlaceObject(tmp, curX, curY);
+                    break;
+                }
+                curX += dirX;
+                curY += dirY;
+            }
+        }
+        
+
     }
     // Update is called once per frame
     void Update () {
