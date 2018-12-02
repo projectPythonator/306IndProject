@@ -5,7 +5,7 @@ using UnityEngine;
 public class GridManager : MonoBehaviour {
 
     public int gridSize = 23;
-    public float tileSize = 34.0f/100.0f;
+    public float tileSize;
     public GameObject[,] Grid;
     public int[,] GridSpaces;
     // Use this for initialization
@@ -20,7 +20,7 @@ public class GridManager : MonoBehaviour {
         {
             for (int j = 0; j < gridSize; j++)
             {
-                GameObject tmp = PoolerScript.current.GetPooledObject();
+                GameObject tmp = FloorPoolerScript.current.GetPooledObject();
                 tmp.SetActive(true);
                 tmp.transform.position = new Vector3(x, y, 0);
                 Grid[i, j] = tmp;
@@ -30,11 +30,36 @@ public class GridManager : MonoBehaviour {
             y += tileSize;
             x = 0;
         }
+        for (int i = 4; i < gridSize - 4; i++)
+        {
+            for (int j = 4; j < gridSize - 4; j++)
+            {
+                if (!(i == 11 && j == 11))
+                {
+                    GameObject tmp = BrickPoolerScript.current.GetPooledObject();
+                    tmp.SetActive(true);
+                    PlaceObject(tmp, i, j);
+                }
+            }
+        }
     }
-	
 
-	// Update is called once per frame
-	void Update () {
+    public void PlaceObject(GameObject obj, int posX, int posY)
+    {
+        Vector3 curPos = Grid[posX, posY].transform.position;
+        Grid[posX, posY].SetActive(false);
+        Grid[posX, posY] = obj;
+        Grid[posX, posY].transform.position = curPos;
+        GridSpaces[posX, posY] = 0;
+    }
+
+    public bool CanPlaceObject(int posX, int posY)
+    { 
+        return (GridSpaces != null && GridSpaces[posX, posY] == 1);
+    }
+
+    // Update is called once per frame
+    void Update () {
 		
 	}
 }

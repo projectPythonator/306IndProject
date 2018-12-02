@@ -61,7 +61,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\BrickPoolerScript.cs" />
+    <Compile Include="Assets\FloorPoolerScript.cs" />
     <Compile Include="Assets\Scripts\GridManager.cs" />
+    <Compile Include="Assets\Scripts\PlayerScript.cs" />
     <Compile Include="Assets\Scripts\PoolerScript.cs" />
     <Reference Include="UnityEditor.StandardEvents">
       <HintPath>C:/Users/Agis/Documents/IndProject306/IndProject/Library/ScriptAssemblies/UnityEditor.StandardEvents.dll</HintPath>
