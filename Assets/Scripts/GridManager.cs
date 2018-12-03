@@ -112,6 +112,20 @@ public class GridManager : MonoBehaviour {
         
 
     }
+
+
+    public void MoveObjectCat(GameObject obj, int cPosX, int cPosY, int dirX, int dirY)
+    {
+        int curX = cPosX + dirX;
+        int curY = cPosY + dirY;
+        if (CanPlaceObject(curX, curY))
+        {
+            PlaceBlank(cPosX, cPosY);
+            PlaceObject(obj, curX, curY);
+            obj.SendMessage("SetPosX", curX);
+            obj.SendMessage("SetPosY", curY);
+        }
+    }
     // Update is called once per frame
     void Update () {
 		
